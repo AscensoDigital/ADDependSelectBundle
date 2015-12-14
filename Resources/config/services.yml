@@ -1,0 +1,9 @@
+parameters:
+#    depend_select.example.class: AscensoWeb\DependSelectBundle\Example
+
+services:
+    ascensodigital_dependselect.form.type:
+        class: AscensoDigital\DependSelectBundle\Form\Type\DependSelectType
+        arguments: [ "@doctrine.orm.entity_manager", "@?logger" ]
+        tags:
+            - { name: form.type, alias: dependselect }
