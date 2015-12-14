@@ -9,20 +9,17 @@
         {
             "name": "Claudio Corvalan",
             "email": "claudio.corvalan@cgslogistica.cl"
-        },
+        }
     ],
     "require": {
-        "php": ">=5.3.9",
-        "symfony/framework-bundle": "~2.7",
-        "symfony/twig-bundle": "~2.7",
-        "symfony/form": "~2.7",
+        "php": ">=5.3.3",
+        "symfony/symfony": "~2.7@beta",
         "doctrine/orm": "~2.2,>=2.2.3,<2.5",
         "doctrine/dbal": "<2.5",
         "doctrine/doctrine-bundle": "~1.4",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
         "friendsofsymfony/jsrouting-bundle": "^1.5"
-    },
-    "require-dev": {
-        "symfony/yaml": "~2.7"
     },
     "autoload": {
         "psr-4": { "AscensoDigital\\DependSelectBundle\\": "" }
