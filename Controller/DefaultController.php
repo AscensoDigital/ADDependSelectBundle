@@ -1,6 +1,6 @@
 <?php
 
-namespace AscensoWeb\DependSelectBundle\Controller;
+namespace AscensoDigital\DependSelectBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
