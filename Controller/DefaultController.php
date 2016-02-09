@@ -18,13 +18,9 @@ class DefaultController extends Controller {
                 }
                 $em = $this->getDoctrine()->getManager();
                 $metodo='findBy'.ucfirst($request->get('name'));
-
-                if(!is_null($request->get('filtroExtra')) && $request->get('filtroExtra')>0) {
-                    $opciones = $em->getRepository($request->get('entity'))->$metodo($id,$request->get('filtroExtra'));
-                }
-                else {
-                    $opciones = $em->getRepository($request->get('entity'))->$metodo($id);
-                }
+                $opciones = (!is_null($request->get('filtroExtra')) && $request->get('filtroExtra') > 0) ?
+                    $em->getRepository($request->get('entity'))->$metodo($id, $request->get('filtroExtra')) :
+                    $em->getRepository($request->get('entity'))->$metodo($id);
                 foreach ($opciones as $opcion) {
                     $resp[]=array('id' => $opcion->getId(), 'nombre' => $opcion->__toString());
                 }
