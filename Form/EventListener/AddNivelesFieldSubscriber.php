@@ -33,7 +33,6 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
         $data = $event->getData();
         $form = $event->getForm();
         $last_nivel_id=\count($this->niveles)-1;
-        //dump($data);
         /*if(is_array($data)){
             for($i=$last_nivel_id;0<=$i;$i--) {
                 if(isset($this->niveles[$i+1]['default']) && !is_null($this->niveles[$i+1]['default'])) {
@@ -72,7 +71,6 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
     public function preSubmit(FormEvent $event) {
         $data = $event->getData();
         $form = $event->getForm();
-        //dump($data);
         for($i=\count($this->niveles)-1;0<=$i;$i--) {
             if(isset($this->niveles[$i+1]['default']) && !is_null($this->niveles[$i+1]['default'])) {
                 $metodo='get'.$this->niveles[$i]['class'];
@@ -93,7 +91,7 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
                 }
             }
             elseif(isset($data[$this->niveles[$i]['name']]) && $data[$this->niveles[$i]['name']]>0) {
-                $ret=$this->om->getRepository($this->niveles[$i]['entity'])->findById($data[$this->niveles[$i]['name']]);
+                $ret = $this->om->getRepository($this->niveles[$i]['entity'])->findBy(array('id' => $data[$this->niveles[$i]['name']]));
                 $this->niveles[$i]['default']= (count($ret)==1 ? $ret[0] : $ret);
             }
             else {
@@ -112,7 +110,6 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
                 $opciones=array(
                     'empty_value' => isset($this->options['multiple']) && $this->options['multiple'] ? 'Todas' : '',
                     'class' => $nivel['entity'],
-                    /*'data' => $nivel['default'],*/
                     'attr' => array(
                         'data-name' => $nivel['name'],
                         'data-next-entity' => $this->niveles[$n_nivel+1]['entity'],
@@ -133,7 +130,6 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
                 $opciones=array(
                     'empty_value' => isset($this->options['multiple']) && $this->options['multiple'] ? 'Todas' : '',
                     'class' => $nivel['entity'],
-                    /*'data' => $nivel['default'],*/
                     'attr' => array(
                         'data-name' => $nivel['name'],
                         'data-next-entity' => isset($this->niveles[$n_nivel+1]) ? $this->niveles[$n_nivel+1]['entity'] : '',
