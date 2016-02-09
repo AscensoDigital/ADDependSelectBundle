@@ -59,5 +59,3 @@ class NivelBaseToNivelesTransformer implements DataTransformerInterface{
           return $value[$this->niveles[count($this->niveles)-1]['name']];
     }
 }
-
-?>
