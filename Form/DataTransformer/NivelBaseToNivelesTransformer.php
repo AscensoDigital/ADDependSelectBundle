@@ -7,7 +7,6 @@
 namespace AscensoDigital\DependSelectBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
-use Doctrine\ORM\EntityManager;
 /**
  * Description of NivelBaseToNivelesTransformer
  *
@@ -22,39 +21,28 @@ class NivelBaseToNivelesTransformer implements DataTransformerInterface{
     private $niveles;
 
     /**
-      * @var EntityManager
-      */
-    private $om;
-
-    /**
      *
-     * @param EntityManager $em
      * @param array $niveles
      */
-    public function __construct(EntityManager $em, array $niveles) {
-        $this->om = $em;
+    public function __construct(array $niveles)
+    {
         $this->niveles=$niveles;
     }
 
     /**
      *
-     * @param type $value
+     * @param Object $value
      */
     public function transform($value) {
         $result = array();
-        if (!(null === $value))
-        {
+        if (!(null === $value)) {
             $niv_inv=array_reverse($this->niveles);
             $anterior=null;
-            foreach($niv_inv as $nivel)
-            {
-                if(is_null($anterior))
-                {
+            foreach ($niv_inv as $nivel) {
+                if (is_null($anterior)) {
                     $result[$nivel['name']]=$value;
                     $anterior=$value;
-                }
-                else
-                {
+                } else {
                     $metodo='get'.$nivel['class'];
                     $anterior = $anterior->$metodo();
                     $result[$nivel['name']]=$anterior;
@@ -65,11 +53,9 @@ class NivelBaseToNivelesTransformer implements DataTransformerInterface{
     }
 
       public function reverseTransform($value) {
-          
           if (!$value) {
               return null;
           }
-
           return $value[$this->niveles[count($this->niveles)-1]['name']];
     }
 }

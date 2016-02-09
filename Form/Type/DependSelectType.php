@@ -6,6 +6,7 @@
  */
 namespace AscensoDigital\DependSelectBundle\Form\Type;
 
+use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -25,6 +26,9 @@ class DependSelectType extends AbstractType{
      * @var ObjectManager
      */
     private $om;
+    /**
+     * @var Logger
+     */
     private $logger;
     
     /**
@@ -47,8 +51,8 @@ class DependSelectType extends AbstractType{
           unset($options['labels']);
       }
       $builder->addEventSubscriber(new AddNivelesFieldSubscriber($this->om, $niveles, $options));
-      
-      $builder->addModelTransformer(new NivelBaseToNivelesTransformer($this->om, $niveles));
+
+        $builder->addModelTransformer(new NivelBaseToNivelesTransformer($niveles));
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -76,12 +80,11 @@ class DependSelectType extends AbstractType{
     return 'dependselect';
   }
 
-  private function normalizar_niveles($niveles, $labels)
-  {
+    private function normalizar_niveles($niveles, $labels)
+    {
     $result=array();
     $nivel_id=0;
-    foreach ($niveles as $nivel)
-    {
+        foreach ($niveles as $nivel) {
       $this->logger->info("Nivel: ".$nivel);
       $entity= is_array($nivel) && isset($nivel['entity']) ? $nivel['entity'] : $nivel;
       $result[$nivel_id]['entity']=$entity;
