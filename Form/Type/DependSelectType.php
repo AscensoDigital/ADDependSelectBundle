@@ -45,7 +45,7 @@ class DependSelectType extends AbstractType{
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-      $niveles=$this->normalizar_niveles($options['niveles'],isset($options['labels']) ? $options['labels'] : array());
+        $niveles = $this->normalizarNiveles($options['niveles'], isset($options['labels']) ? $options['labels'] : array());
       unset($options['niveles']);
       if(isset($options['labels'])){
           unset($options['labels']);
@@ -80,7 +80,7 @@ class DependSelectType extends AbstractType{
     return 'dependselect';
   }
 
-    private function normalizar_niveles($niveles, $labels)
+    private function normalizarNiveles($niveles, $labels)
     {
     $result=array();
     $nivel_id=0;
