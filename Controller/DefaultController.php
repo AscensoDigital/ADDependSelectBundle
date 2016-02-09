@@ -25,7 +25,7 @@ class DefaultController extends Controller {
                     $resp[]=array('id' => $opcion->getId(), 'nombre' => $opcion->__toString());
                 }
                 if(0==count($resp)){
-                    $resp[]=array('id' => '', 'nombre' => 'Sin Disponibilidad');
+                    $resp[] = array('id' => '', 'nombre' => $this->getParameter('ad_dependselect.data_empty'));
                 }
             }
         }

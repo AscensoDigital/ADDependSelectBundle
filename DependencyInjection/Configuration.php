@@ -1,6 +1,6 @@
 <?php
 
-namespace AscensoWeb\DependSelectBundle\DependencyInjection;
+namespace AscensoDigital\DependSelectBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,12 +18,12 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('ascensodigital_dependselect');
-
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
-
+        $rootNode = $treeBuilder->root('ad_dependselect');
+        $rootNode
+            ->children()
+            ->scalarNode('data_empty')->defaultValue('Sin Disponibilidad')->cannotBeEmpty()->end()
+            ->end()
+            ->end();
         return $treeBuilder;
     }
 }
