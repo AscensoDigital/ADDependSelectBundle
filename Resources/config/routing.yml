@@ -1,5 +1,5 @@
 ad_depend_select_load:
-    pattern:  /ad-load-depend-select
+    path:  /ad-load-depend-select
     defaults: { _controller: ADDependSelectBundle:Default:index }
     options:
         expose: true
