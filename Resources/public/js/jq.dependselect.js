@@ -5,24 +5,29 @@ $(document).ready(function () {
             var destino="#" + $(this).attr('id').substr(0,last_position+1) + $(this).data('next-name');
             if($(this).val()>0 || $(this).val().length>1 || ($(this).val().length===1 && $(this).val()[0]>0)) {
                 $.ajax({url: Routing.generate('ad_depend_select_load',{},true),
-                        type: 'POST', 
-                        dataType: 'json', 
-                        data: {id: $(this).val(), name: $(this).data('name'), entity: $(this).data('next-entity'), filtroExtra: ($(this).data('filtro-extra')!= undefined ? $(this).data('filtro-extra') : null)},
-                        success: function (data) {
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        id: $(this).val(),
+                        name: $(this).data('name'),
+                        entity: $(this).data('next-entity'),
+                        filtroExtra: ($(this).data('filtro-extra') != undefined ? $(this).data('filtro-extra') : null)
+                    },
+                    success: function (data) {
 
-                            no="<option></option>";
-                            $.each(data,function(i,e){
-                                no+="<option value="+e.id+">"+e.nombre+"</option>";
-                            });
-                            $(destino).html(no);
-                            if ($(destino).data('next-name') !== '') {
-                                limpiaRecursiva($(destino).attr('id'));
-                            }
-                            if (1 === data.length) {
-                                $(destino).val(data[0].id);
-                                $(destino).change();
-                            }
+                        no = "<option></option>";
+                        $.each(data, function (i, e) {
+                            no += "<option value=" + e.id + ">" + e.nombre + "</option>";
+                        });
+                        $(destino).html(no);
+                        if ($(destino).data('next-name') !== '') {
+                            limpiaRecursiva($(destino).attr('id'));
                         }
+                        if (1 === data.length) {
+                            $(destino).val(data[0].id);
+                            $(destino).change();
+                        }
+                    }
                 });
             }
             else if($(this).data('next-name')!=='') {
@@ -40,4 +45,28 @@ $(document).ready(function () {
             limpiaRecursiva($(destino).attr('id'));
 
     }
+
+    $('select.depend-select[required="required"]').each(function () {
+        if ($(this).val() == null || $(this).val() == '') {
+            var cant = $(this).children().length;
+            switch (cant) {
+                case 2:
+                    if ($(this).children().first().val() == '') {
+                        valor = $(this).children().last().val();
+                        if (valor > 0) {
+                            $(this).val(valor);
+                            $(this).change();
+                        }
+                    }
+                    break;
+                case 1:
+                    valor = $(this).children().first().val();
+                    if (valor > 0) {
+                        $(this).val(valor);
+                        $(this).change();
+                    }
+                    break;
+            }
+        }
+    });
 });
