@@ -15,9 +15,14 @@ $(document).ready(function () {
                                 no+="<option value="+e.id+">"+e.nombre+"</option>";
                             });
                             $(destino).html(no);
-                            if($(destino).data('next-name')!=='')
+                            if ($(destino).data('next-name') !== '') {
                                 limpiaRecursiva($(destino).attr('id'));
-                        },
+                            }
+                            if (1 === data.length) {
+                                $(destino).val(data[0].id);
+                                $(destino).change();
+                            }
+                        }
                 });
             }
             else if($(this).data('next-name')!=='') {
@@ -33,6 +38,6 @@ $(document).ready(function () {
         $(destino).html(no);
         if($(destino).data('next-name')!=='')
             limpiaRecursiva($(destino).attr('id'));
-        return;
+
     }
 });
