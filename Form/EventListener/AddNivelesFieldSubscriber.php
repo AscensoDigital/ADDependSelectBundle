@@ -108,7 +108,7 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
         foreach($this->niveles as $nivel) {
             if(0==$n_nivel) {
                 $opciones=array(
-                    'placeholder' => isset($this->options['multiple']) && $this->options['multiple'] ? 'Todas' : '',
+                    'placeholder' => '',
                     'class' => $nivel['entity'],
                     'attr' => array(
                         'data-name' => $nivel['name'],
@@ -128,7 +128,7 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
             else {
                 $metodo='findBy'.$this->niveles[$n_nivel-1]['class'];
                 $opciones=array(
-                    'placeholder' => isset($this->options['multiple']) && $this->options['multiple'] ? 'Todas' : '',
+                    'placeholder' => '',
                     'class' => $nivel['entity'],
                     'attr' => array(
                         'data-name' => $nivel['name'],
