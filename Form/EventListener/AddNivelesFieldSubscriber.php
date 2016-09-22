@@ -118,6 +118,7 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
                         )
                     );
                 $opciones = $this->procesaOptions($opciones);
+                if (isset($this->options['query_builder'])) $opciones['query_builder'] = $this->options['query_builder'];
                 $form->add($nivel['name'], 'entity', $opciones);
             }
             else {
@@ -156,7 +157,6 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
                 $opciones['attr']['class'] = implode(' ', $opciones['attr']['class']);
             }
         }
-        if (isset($this->options['query_builder'])) $opciones['query_builder'] = $this->options['query_builder'];
         if (isset($nivel['label'])) $opciones['label'] = $nivel['label'];
         return $opciones;
     }
