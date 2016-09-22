@@ -120,7 +120,12 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
                 if(isset($this->options['multiple'])) $opciones['multiple']=$this->options['multiple'];
                 if(isset($this->options['required'])) $opciones['required']=$this->options['required'];
                 if(isset($this->options['expanded'])) $opciones['expanded']=$this->options['expanded'];
-                if(isset($this->options['attr'])) $opciones['attr']=array_merge_recursive($opciones['attr'],$this->options['attr']);
+                if (isset($this->options['attr'])) {
+                    $opciones['attr'] = array_merge_recursive($opciones['attr'], $this->options['attr']);
+                    if (isset($opciones['attr']['class']) && is_array($opciones['attr']['class'])) {
+                        $opciones['attr']['class'] = implode(' ', $opciones['attr']['class']);
+                    }
+                }
                 if(isset($this->options['query_builder'])) $opciones['query_builder']=$this->options['query_builder'];
                 if(isset($nivel['label'])) $opciones['label']=$nivel['label'];
                 $form->add($nivel['name'], 'entity', $opciones);
@@ -140,7 +145,12 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
                 if(isset($this->options['multiple'])) $opciones['multiple']=$this->options['multiple'];
                 if(isset($this->options['required'])) $opciones['required']=$this->options['required'];
                 if(isset($this->options['expanded'])) $opciones['expanded']=$this->options['expanded'];
-                if(isset($this->options['attr'])) $opciones['attr']=array_merge_recursive($opciones['attr'],$this->options['attr']);
+                if (isset($this->options['attr'])) {
+                    $opciones['attr'] = array_merge_recursive($opciones['attr'], $this->options['attr']);
+                    if (isset($opciones['attr']['class']) && is_array($opciones['attr']['class'])) {
+                        $opciones['attr']['class'] = implode(' ', $opciones['attr']['class']);
+                    }
+                }
                 if(isset($nivel['label'])) $opciones['label']=$nivel['label'];
                 if(isset($opciones['attr']['data-filtro-extra'])){
                     $opciones['choices'] = is_null($this->niveles[$n_nivel-1]['default']) ? array() : $this->om->getRepository($nivel['entity'])->$metodo($this->niveles[$n_nivel-1]['default'],$opciones['attr']['data-filtro-extra']);
