@@ -117,17 +117,7 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
                         'class' => 'depend-select'
                         )
                     );
-                if(isset($this->options['multiple'])) $opciones['multiple']=$this->options['multiple'];
-                if(isset($this->options['required'])) $opciones['required']=$this->options['required'];
-                if(isset($this->options['expanded'])) $opciones['expanded']=$this->options['expanded'];
-                if (isset($this->options['attr'])) {
-                    $opciones['attr'] = array_merge_recursive($opciones['attr'], $this->options['attr']);
-                    if (isset($opciones['attr']['class']) && is_array($opciones['attr']['class'])) {
-                        $opciones['attr']['class'] = implode(' ', $opciones['attr']['class']);
-                    }
-                }
-                if(isset($this->options['query_builder'])) $opciones['query_builder']=$this->options['query_builder'];
-                if(isset($nivel['label'])) $opciones['label']=$nivel['label'];
+                $opciones = $this->procesaOptions($opciones);
                 $form->add($nivel['name'], 'entity', $opciones);
             }
             else {
@@ -142,16 +132,7 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
                         'class' => 'depend-select'
                         ),
                   );
-                if(isset($this->options['multiple'])) $opciones['multiple']=$this->options['multiple'];
-                if(isset($this->options['required'])) $opciones['required']=$this->options['required'];
-                if(isset($this->options['expanded'])) $opciones['expanded']=$this->options['expanded'];
-                if (isset($this->options['attr'])) {
-                    $opciones['attr'] = array_merge_recursive($opciones['attr'], $this->options['attr']);
-                    if (isset($opciones['attr']['class']) && is_array($opciones['attr']['class'])) {
-                        $opciones['attr']['class'] = implode(' ', $opciones['attr']['class']);
-                    }
-                }
-                if(isset($nivel['label'])) $opciones['label']=$nivel['label'];
+                $opciones = $this->procesaOptions($opciones);
                 if(isset($opciones['attr']['data-filtro-extra'])){
                     $opciones['choices'] = is_null($this->niveles[$n_nivel-1]['default']) ? array() : $this->om->getRepository($nivel['entity'])->$metodo($this->niveles[$n_nivel-1]['default'],$opciones['attr']['data-filtro-extra']);
                 }
@@ -162,5 +143,21 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
             }
             $n_nivel++;
         }
+    }
+
+    private function procesaOptions($opciones)
+    {
+        if (isset($this->options['multiple'])) $opciones['multiple'] = $this->options['multiple'];
+        if (isset($this->options['required'])) $opciones['required'] = $this->options['required'];
+        if (isset($this->options['expanded'])) $opciones['expanded'] = $this->options['expanded'];
+        if (isset($this->options['attr'])) {
+            $opciones['attr'] = array_merge_recursive($opciones['attr'], $this->options['attr']);
+            if (isset($opciones['attr']['class']) && is_array($opciones['attr']['class'])) {
+                $opciones['attr']['class'] = implode(' ', $opciones['attr']['class']);
+            }
+        }
+        if (isset($this->options['query_builder'])) $opciones['query_builder'] = $this->options['query_builder'];
+        if (isset($nivel['label'])) $opciones['label'] = $nivel['label'];
+        return $opciones;
     }
 }
