@@ -30,9 +30,11 @@ class DependSelectType extends AbstractType{
      * @var Logger
      */
     private $logger;
-    
+
     /**
+     * DependSelectType constructor.
      * @param ObjectManager $om
+     * @param $logger
      */
     public function __construct(ObjectManager $om, $logger) {
         $this->om = $om;
@@ -71,14 +73,14 @@ class DependSelectType extends AbstractType{
         ));
     }
 
-  public function getParent()
+  /*public function getParent()
   {
       return 'form';
   }
 
   public function getName() {
     return 'dependselect';
-  }
+  }*/
 
     private function normalizarNiveles($niveles, $labels)
     {
@@ -102,5 +104,3 @@ class DependSelectType extends AbstractType{
     return $result;
   }
 }
-
-?>

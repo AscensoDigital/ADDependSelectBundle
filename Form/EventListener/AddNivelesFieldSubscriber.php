@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Description of AddNivelesFieldSubscriber
@@ -119,7 +120,7 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
                     );
                 $opciones = $this->procesaOptions($opciones);
                 if (isset($this->options['query_builder'])) $opciones['query_builder'] = $this->options['query_builder'];
-                $form->add($nivel['name'], 'entity', $opciones);
+                $form->add($nivel['name'], EntityType::class, $opciones);
             }
             else {
                 $metodo='findBy'.$this->niveles[$n_nivel-1]['class'];
@@ -140,7 +141,7 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
                 else {
                     $opciones['choices'] = is_null($this->niveles[$n_nivel-1]['default']) ? array() : $this->om->getRepository($nivel['entity'])->$metodo($this->niveles[$n_nivel-1]['default']);
                 }
-                $form->add($nivel['name'], 'entity', $opciones);
+                $form->add($nivel['name'], EntityType::class, $opciones);
             }
             $n_nivel++;
         }

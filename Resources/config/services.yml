@@ -6,4 +6,4 @@ services:
         class: AscensoDigital\DependSelectBundle\Form\Type\DependSelectType
         arguments: [ "@doctrine.orm.entity_manager", "@?logger" ]
         tags:
-            - { name: form.type, alias: dependselect }
+            - { name: form.type }

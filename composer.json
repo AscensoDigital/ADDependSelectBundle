@@ -16,10 +16,11 @@
         "friendsofsymfony/jsrouting-bundle": "^2.2",
         "symfony/form": "^4.1",
         "symfony/monolog-bundle": "^3.3",
-        "doctrine/common": "^2.9"
+        "doctrine/common": "^2.9",
+        "symfony/doctrine-bridge": "^4.1"
     },
     "autoload": {
         "psr-4": { "AscensoDigital\\DependSelectBundle\\": "" }
     },
-    "version": "2.0.0"
+    "version": "2.0.1"
 }
