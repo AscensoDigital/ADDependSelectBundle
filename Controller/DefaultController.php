@@ -22,7 +22,8 @@ class DefaultController extends Controller {
                     $em->getRepository($request->get('entity'))->$metodo($id, $request->get('filtroExtra')) :
                     $em->getRepository($request->get('entity'))->$metodo($id);
                 foreach ($opciones as $opcion) {
-                    $resp[]=array('id' => $opcion->getId(), 'nombre' => $opcion->__toString());
+                    $id = is_object($opcion->getId()) ? $opcion->getId()->getId() : $opcion->getId();
+                    $resp[]=array('id' => $id, 'nombre' => $opcion->__toString());
                 }
                 if(0==count($resp)){
                     $resp[] = array('id' => '', 'nombre' => $this->getParameter('ad_dependselect.data_empty'));
