@@ -48,11 +48,11 @@ class DependSelectType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $niveles = $this->normalizarNiveles($options['niveles'], isset($options['labels']) ? $options['labels'] : array());
-      unset($options['niveles']);
-      if(isset($options['labels'])){
-          unset($options['labels']);
-      }
-      $builder->addEventSubscriber(new AddNivelesFieldSubscriber($this->om, $niveles, $options));
+        unset($options['niveles']);
+        if(isset($options['labels'])){
+            unset($options['labels']);
+        }
+        $builder->addEventSubscriber(new AddNivelesFieldSubscriber($this->om, $niveles, $options));
 
         $builder->addModelTransformer(new NivelBaseToNivelesTransformer($niveles));
     }
@@ -84,23 +84,23 @@ class DependSelectType extends AbstractType{
 
     private function normalizarNiveles($niveles, $labels)
     {
-    $result=array();
-    $nivel_id=0;
+        $result=array();
+        $nivel_id=0;
         foreach ($niveles as $nivel) {
-      $this->logger->info("Nivel: ".$nivel);
-      $entity= is_array($nivel) && isset($nivel['entity']) ? $nivel['entity'] : $nivel;
-      $result[$nivel_id]['entity']=$entity;
-      $tmpclass=  explode(':', $entity);
-      $class=$tmpclass[count($tmpclass)-1];
-      $result[$nivel_id]['class']=$class;
-      $this->logger->info("Class: ".$class);
-      $name= is_array($nivel) && isset($nivel['name']) ? $nivel['name'] : strtolower(substr($class,0,1)).substr($class,1);
-      $result[$nivel_id]['name']=$name;
-      if(isset($labels[$nivel_id])) {
-          $result[$nivel_id]['label']=$labels[$nivel_id];
-      }
-      $nivel_id++;
+            $this->logger->info("Nivel: ".(is_array($nivel) ? implode(' ',$nivel) : $nivel));
+            $entity= is_array($nivel) && isset($nivel['entity']) ? $nivel['entity'] : $nivel;
+            $result[$nivel_id]['entity']=$entity;
+            $tmpclass=  explode(':', $entity);
+            $class=$tmpclass[count($tmpclass)-1];
+            $result[$nivel_id]['class']=$class;
+            $this->logger->info("Class: ".$class);
+            $name= is_array($nivel) && isset($nivel['name']) ? $nivel['name'] : strtolower(substr($class,0,1)).substr($class,1);
+            $result[$nivel_id]['name']=$name;
+            if(isset($labels[$nivel_id])) {
+                $result[$nivel_id]['label']=$labels[$nivel_id];
+            }
+            $nivel_id++;
+        }
+        return $result;
     }
-    return $result;
-  }
 }
