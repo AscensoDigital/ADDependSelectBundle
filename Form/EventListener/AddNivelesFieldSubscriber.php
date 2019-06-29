@@ -118,7 +118,7 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
                         'class' => 'depend-select'
                         )
                     );
-                $opciones = $this->procesaOptions($opciones);
+                $opciones = $this->procesaOptions($opciones, $nivel);
                 if (isset($this->options['query_builder'])) $opciones['query_builder'] = $this->options['query_builder'];
                 $form->add($nivel['name'], EntityType::class, $opciones);
             }
@@ -134,7 +134,7 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
                         'class' => 'depend-select'
                         ),
                   );
-                $opciones = $this->procesaOptions($opciones);
+                $opciones = $this->procesaOptions($opciones, $nivel);
                 if(isset($opciones['attr']['data-filtro-extra'])){
                     $opciones['choices'] = is_null($this->niveles[$n_nivel-1]['default']) ? array() : $this->om->getRepository($nivel['entity'])->$metodo($this->niveles[$n_nivel-1]['default'],$opciones['attr']['data-filtro-extra']);
                 }
@@ -147,7 +147,7 @@ class AddNivelesFieldSubscriber implements EventSubscriberInterface {
         }
     }
 
-    private function procesaOptions($opciones)
+    private function procesaOptions($opciones, $nivel)
     {
         if (isset($this->options['multiple'])) $opciones['multiple'] = $this->options['multiple'];
         if (isset($this->options['required'])) $opciones['required'] = $this->options['required'];
