@@ -96,7 +96,10 @@ class DependSelectType extends AbstractType{
             $this->logger->info("Class: ".$class);
             $name= is_array($nivel) && isset($nivel['name']) ? $nivel['name'] : strtolower(substr($class,0,1)).substr($class,1);
             $result[$nivel_id]['name']=$name;
-            if(isset($labels[$nivel_id])) {
+            if(is_array($nivel) && isset($nivel['label'])) {
+                $result[$nivel_id]['label']=$nivel['label'];
+            }
+            elseif(isset($labels[$nivel_id])) {
                 $result[$nivel_id]['label']=$labels[$nivel_id];
             }
             $nivel_id++;
